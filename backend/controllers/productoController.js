@@ -1,4 +1,4 @@
-const Producto = require("../model/productoModel.js");
+import Producto from "../model/productoModel.js";
 
 const createProducto = async (req, res) => {
   var newProducto = await Producto.create(req.body);
@@ -31,7 +31,7 @@ const updateProducto = async (req, res) => {
   res.status(200).json();
 };
 
-module.exports = {
+export {
   createProducto,
   getProducto,
   deleteProducto,

@@ -1,25 +1,17 @@
 import express from "express";
-import cors from 'cors';
-import mongoose from 'mongoose';
-import * as productRoutes from './routes/productoRoute.js'
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 import "dotenv/config";
-
+import path from "path";
 
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
-app.use(cors());
+
+// host static files
 app.use(express.static("client"));
 
-mongoose
-    .connect("mongodb://127.0.0.1:27017/directory")
-    .then(() => console.log("conexion correcta"))
-    .catch((e) => console.log(e));
-
+// parse post params sent in body in json format
 app.use(express.json());
-app.use(productRoutes.router);
-
 
 /**
  * Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs.
@@ -158,6 +150,3 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Node server listening at http://localhost:${PORT}/`);
 });
-
-
-app.listen(8080);
